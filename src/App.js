@@ -1,24 +1,26 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
+import axios from 'axios';
+import { Route, Routes } from 'react-router-dom';
+import Accuiel from './components/Accuiel';
+import Detailscountry from './components/Detailscountry';
 
 function App() {
+  const [countrys, setcountrys] = useState([])
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const res = await axios.get('https://restcountries.com/v3.1/all');
+      return res.data;
+    }
+
+    getUsers().then(users => setcountrys(users))
+  })
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+ <Routes>
+  <Route path='/' element={<Accuiel countrys={countrys}/>}/>
+  <Route path='/:name' element ={<Detailscountry countrys={countrys}/>}/>
+ </Routes>
   );
 }
 
