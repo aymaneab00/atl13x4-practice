@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 
 export default function Accuiel({countrys}) {
   return (
-   <div>
+   <div className='countrys'>
     {countrys.map((c,i)=>
-      <div key={i}>
+      <div key={i} className='country'>
         <p>click in the image to see country information</p>
        <Link to={`/${c.name.common}`}>
        <img src={c.flags['png']} alt={c.name} />
